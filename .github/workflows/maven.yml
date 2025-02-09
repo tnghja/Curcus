@@ -12,6 +12,14 @@ jobs:
     permissions:
       contents: read
 
+    env:
+      BACKEND_HOST: ${{ secrets.BACKEND_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -21,10 +29,10 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-        cache: maven  
+        cache: maven
 
     - name: Grant execute permission for Maven Wrapper
-      run: chmod +x mvnw  
+      run: chmod +x mvnw
 
     - name: Build with Maven
       run: ./mvnw clean package
